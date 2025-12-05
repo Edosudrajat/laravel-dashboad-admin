@@ -10,12 +10,22 @@ class KaryawanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employes = Karyawan::paginate(5);
 
-        return view('karyawan.index', ['employes' => $employes]);
+        // Fitur Search
+        $keyword = $request->search;
+        $employees = Karyawan::when($keyword, fn($q) => $q->whereAny(['name','birth_date', 'job'], 'like', "%{$keyword}%"))->paginate(6)->withQueryString();
+
+        // Total Kategori Pekerjaan
+        $jobCount = Karyawan::select('job')->distinct()->count();
+
+        return view('karyawan.index', [
+            'jobCount' => $jobCount,
+            'employees' => $employees,
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

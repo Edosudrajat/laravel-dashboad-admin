@@ -26,7 +26,7 @@
                     </div>
                     <div class="sidebar-text">
                         <h2 class="font-bold text-lg">Admin Panel</h2>
-                        <p class="text-xs text-white/70">Dashboard v2.0</p>
+                        <p class="text-xs text-white/70">Dashboard v1.0</p>
                     </div>
                 </div>
             </div>
@@ -80,13 +80,17 @@
                         <i class='bx bx-menu'></i>
                     </button>
 
-                    <div id="searchBar" class="flex-1 max-w-xl hidden">
-                        <div class="relative">
+                    {{-- Request Search --}}
+                    <form action="{{ route('karyawan.index') }}" method="get" id="searchBar"
+                        class="flex-1 max-w-xl hidden">
+                        <div class="relative flex">
                             <i class='bx bx-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
-                            <input type="text" placeholder="Search students..."
-                                class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all">
+                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search Employees..."
+                                class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all mr-3">
+                            <button type="submit"
+                                class="px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2">Search</button>
                         </div>
-                    </div>
+                    </form>
 
                     <div class="flex-1"></div>
 

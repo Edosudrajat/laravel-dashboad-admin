@@ -17,9 +17,9 @@ class KaryawanFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama' => fake()->name(),
-            'tgl_lahir' => fake()->dateTimeBetween('-30 years', '-18 years')->format('d-m-Y'),
-            'pekerjaan' => fake()->jobTitle()
+            'name' => fake()->name(),
+            'date_birth' => fake()->dateTimeBetween('-30 years', '-18 years')->format('d-m-Y'),
+            'job' => fake()->jobTitle()
         ];
     }
 }
