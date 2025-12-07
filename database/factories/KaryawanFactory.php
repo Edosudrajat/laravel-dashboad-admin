@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Mentor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,8 @@ class KaryawanFactory extends Factory
         return [
             'name' => fake()->name(),
             'date_birth' => fake()->dateTimeBetween('-30 years', '-18 years')->format('d-m-Y'),
-            'job' => fake()->jobTitle()
+            'job' => fake()->jobTitle(),
+            'mentor_id' => Mentor::inRandomOrder()->first()->id,
         ];
     }
 }

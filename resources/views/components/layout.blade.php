@@ -5,11 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Dashboard</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-linear-to-br from-gray-50 to-gray-100 min-h-screen">
+    <!-- Toast -->
+    @if (session('success'))
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show"
+            x-transition:enter="transform transition-all duration-500"
+            x-transition:enter-start="translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100"
+            x-transition:leave="transform transition-all duration-500"
+            x-transition:leave-start="translate-x-0 opacity-100" x-transition:leave-end="translate-x-full opacity-0"
+            class="fixed top-5 right-5 z-50 bg-green-600 text-white px-5 py-3 rounded-xl shadow-lg flex items-center gap-3">
+            <i class='bx bx-check-circle text-2xl'></i>
+            <span class="font-semibold">{{ session('success') }}</span>
+        </div>
+    @endif
 
     <div class="flex h-screen overflow-hidden">
 
@@ -18,7 +31,7 @@
             class="w-64 bg-linear-to-b from-indigo-600 to-purple-700 text-white flex flex-col shadow-xl">
 
             <!-- Logo & Profile -->
-            <div class="p-6 border-b border-white/10 ">
+            <div class="p-6 border-b border-white/10 h-25">
                 <div id="logoContainer" class="flex items-center gap-3">
                     <div
                         class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center shrink-0">
@@ -71,21 +84,22 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto py-4">
+        <main class="flex-1 overflow-y-auto">
 
             <!-- Top Bar -->
-            <header class="bg-white shadow-sm sticky top-0 z-10">
+            <header class="bg-white shadow-sm sticky top-0 z-10 h-25">
                 <div class="flex items-center gap-4 p-4">
                     <button data-toggle="sidebar"" class="lg:hidden text-2xl text-gray-600 hover:text-gray-900">
                         <i class='bx bx-menu'></i>
                     </button>
 
                     {{-- Request Search --}}
-                    <form action="{{ route('karyawan.index') }}" method="get" id="searchBar"
+                    <form action="{{ route('employees.index') }}" method="get" id="searchBar"
                         class="flex-1 max-w-xl hidden">
                         <div class="relative flex">
                             <i class='bx bx-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl'></i>
-                            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search Employees..."
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                placeholder="Search Employees..."
                                 class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all mr-3">
                             <button type="submit"
                                 class="px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2">Search</button>

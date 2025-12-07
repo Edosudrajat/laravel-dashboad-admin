@@ -41,7 +41,7 @@
                     </div>
                     <span class="text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Active</span>
                 </div>
-                <h3 class="text-gray-500 text-sm font-medium">Active Employees</h3>
+                <h3 class="text-gray-500 text-sm font-medium">Total Mentors</h3>
                 <p class="text-3xl font-bold text-gray-800 mt-2">{{ $employees->total() }}</p>
             </div>
 
@@ -62,11 +62,10 @@
                 <h1 class="text-3xl font-bold text-gray-800">Employee Management</h1>
                 <p class="text-gray-500 mt-1">Manage employee data and information</p>
             </div>
-            <button
-                class="px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2">
-                <i class='bx bx-plus text-xl'></i>
-                Add Employee
-            </button>
+            <a href="{{ route('employees.create') }}"
+                class="px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2"><i
+                    class='bx bx-plus text-xl'></i>
+                Add Employee</a>
         </div>
 
         <!-- Table -->
@@ -106,8 +105,10 @@
                                         <div class="flex items-center gap-3">
                                             <div
                                                 class="w-10 h-10 bg-linear-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-                                                ES
+                                                @php $p = explode(' ', trim($employee->name)); @endphp
+                                                {{ strtoupper($p[0][0] . ($p[1][0] ?? '')) }}
                                             </div>
+
                                             <div>
                                                 <p class="font-semibold text-gray-800">{{ $employee->name }}</p>
                                                 <p class="text-xs text-gray-500">Active Employee</p>

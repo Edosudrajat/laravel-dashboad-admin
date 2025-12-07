@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Mahasiswa;
+use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        $this->call([MentorSeeder::class]);
         $this->call([KaryawanSeeder::class]);
 
     }
