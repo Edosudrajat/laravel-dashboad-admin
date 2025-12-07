@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Karyawan;
 use App\Models\Mentor;
 use Illuminate\Http\Request;
-use PHPUnit\Framework\MockObject\Stub\ReturnStub;
 
 class EmployeesController extends Controller
 {
@@ -17,14 +16,16 @@ class EmployeesController extends Controller
 
         // Fitur Search
         $keyword = $request->search;
-        $employees = Karyawan::with('relasiKementor')->when($keyword, fn($q) => $q->whereAny(['name','birth_date', 'job'], 'like', "%{$keyword}%"))->paginate(6)->withQueryString();
+        $employees = Karyawan::with('mentor')->when($keyword, fn($q) => $q->whereAny(['name','birth_date', 'job'], 'like', "%{$keyword}%"))->paginate(6)->withQueryString();
 
         // Total Kategori Pekerjaan
         $jobCount = Karyawan::select('job')->distinct()->count();
+        $mentorCount = Mentor::select('name')->count();
 
         return view('employees.index', [
             'jobCount' => $jobCount,
             'employees' => $employees,
+            'mentorCount' =>$mentorCount,
         ]);
     }
 
@@ -58,25 +59,35 @@ class EmployeesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Karyawan $karyawan)
     {
-        //
+        return view('employees.show', ['employee' => $karyawan]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Karyawan $karyawan)
     {
-        //
+        $mentors = Mentor::all();
+        return view('employees.edit', ['employee' => $karyawan, 'mentors' => $mentors]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Karyawan $karyawan)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'date_birth' => 'required|date',
+            'job' => 'required|string|max:255',
+            'mentor_id' => 'required|exists:mentors,id',
+        ]);
+
+        $karyawan->update($validated);
+        
+        return redirect()->route('employees.index')->with('success', 'Data berhasil diupdate!');
     }
 
     /**

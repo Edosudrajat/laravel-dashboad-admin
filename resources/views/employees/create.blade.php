@@ -104,7 +104,7 @@
             </div>
 
         </form>
-        <a href="{{ route('employees.index') }}"
+        <a href="{{ url()->previous() }}"
             class="px-4 bg-white/10 hover:bg-white/20 text-gray-200 block mt-5 py-3.5 font-semibold rounded-xl hover:opacity-90 active:scale-[0.98] transition-all text-center">
             ← Back
         </a>

@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Karyawan extends Model
 {
-    /** @use HasFactory<\Database\Factories\KaryawanFactory> */
     use HasFactory;
 
     protected $fillable = ['name', 'job', 'date_birth', 'mentor_id'];
 
-    public function relasiKementor() {
+    protected $casts = [
+        'date_birth' => 'date',
+    ];
+
+    public function mentor()
+    {
         return $this->belongsTo(Mentor::class);
     }
 }

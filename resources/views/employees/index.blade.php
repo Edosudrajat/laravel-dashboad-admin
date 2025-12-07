@@ -42,7 +42,7 @@
                     <span class="text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Active</span>
                 </div>
                 <h3 class="text-gray-500 text-sm font-medium">Total Mentors</h3>
-                <p class="text-3xl font-bold text-gray-800 mt-2">{{ $employees->total() }}</p>
+                <p class="text-3xl font-bold text-gray-800 mt-2">{{ $mentorCount }}</p>
             </div>
 
         </div>
@@ -115,25 +115,26 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-600 font-medium">{{ $employee->date_birth }}
+                                    <td class="px-6 py-4 text-sm text-gray-600 font-medium">{{ $employee->date_birth->format('d-m-Y') }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-600">{{ $employee->job }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">-</td>
+                                    <td class="px-6 py-4 text-sm text-gray-600">{{ $employee->mentor->name }}</td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-2">
-                                            <button class="p-2 hover:bg-blue-50 text-blue-600 rounded-lg transition-all"
+                                            <a href="{{ route('employees.edit', $employee->id) }}"
+                                                class="p-2 hover:bg-blue-50 text-blue-600 rounded-lg transition-all"
                                                 title="Edit">
                                                 <i class='bx bx-edit text-lg'></i>
-                                            </button>
+                                            </a>
                                             <button class="p-2 hover:bg-red-50 text-red-600 rounded-lg transition-all"
                                                 title="Delete">
                                                 <i class='bx bx-trash text-lg'></i>
                                             </button>
-                                            <button
+                                            <a href="{{ route('employees.show', $employee->id) }}"
                                                 class="p-2 hover:bg-gray-100 text-gray-600 rounded-lg transition-all"
                                                 title="More">
                                                 <i class='bx bx-dots-vertical-rounded text-lg'></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
