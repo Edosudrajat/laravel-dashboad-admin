@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmployeesController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/welcome', [EmployeesController::class, 'welcome'])->name('welcome');
 
 Route::get('/', [EmployeesController::class, 'index'])->name('employees.index');
 
