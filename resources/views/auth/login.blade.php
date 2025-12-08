@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Employee Dashboard</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
@@ -24,6 +25,18 @@
 </head>
 
 <body class="gradient-bg h-screen flex items-center justify-center px-4">
+    <!-- Toast -->
+    @if (session('success'))
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show"
+            x-transition:enter="transform transition-all duration-500"
+            x-transition:enter-start="translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100"
+            x-transition:leave="transform transition-all duration-500"
+            x-transition:leave-start="translate-x-0 opacity-100" x-transition:leave-end="translate-x-full opacity-0"
+            class="fixed top-5 right-5 z-50 bg-green-600 text-white px-5 py-3 rounded-xl shadow-lg flex items-center gap-3">
+            <i class='bx bx-check-circle text-2xl'></i>
+            <span class="font-semibold">{{ session('success') }}</span>
+        </div>
+    @endif
 
     <div class="glass-card w-full max-w-md p-10 rounded-2xl shadow-xl relative">
 
