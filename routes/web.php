@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeesController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,7 @@ Route::delete('/delete/{karyawan}', [EmployeesController::class, 'destroy'])->na
 Route::get('/edit/{karyawan}', [EmployeesController::class, 'edit'])->name('employees.edit');
 
 Route::put('/{karyawan}/edit', [EmployeesController::class, 'update'])->name('employees.update');
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
+
+Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.register');
