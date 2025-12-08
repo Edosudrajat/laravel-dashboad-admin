@@ -6,6 +6,8 @@ use App\Models\Karyawan;
 use App\Models\Mentor;
 use Illuminate\Http\Request;
 
+use function Pest\Laravel\delete;
+
 class EmployeesController extends Controller
 {
     /**
@@ -93,8 +95,10 @@ class EmployeesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Karyawan $karyawan)
     {
-        //
+        $karyawan->delete();
+
+        return to_route('employees.index')->with('success', 'Data berhasill dihapus!');
     }
 }

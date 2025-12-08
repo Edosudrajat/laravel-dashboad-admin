@@ -45,7 +45,7 @@
 
             <div class="p-4 bg-gray-800/50 rounded-xl border border-white/10">
                 <p class="text-sm text-gray-400">Date of Birth</p>
-                <p class="text-lg font-medium text-white">{{ $employee->date_birth }}</p>
+                <p class="text-lg font-medium text-white">{{ $employee->date_birth->format('d M Y') }}</p>
             </div>
 
             <div class="p-4 bg-gray-800/50 rounded-xl border border-white/10">

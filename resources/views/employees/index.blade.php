@@ -115,7 +115,8 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-600 font-medium">{{ $employee->date_birth->format('d-m-Y') }}
+                                    <td class="px-6 py-4 text-sm text-gray-600 font-medium">
+                                        {{ $employee->date_birth->format('d M Y') }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-600">{{ $employee->job }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-600">{{ $employee->mentor->name }}</td>
@@ -126,10 +127,16 @@
                                                 title="Edit">
                                                 <i class='bx bx-edit text-lg'></i>
                                             </a>
-                                            <button class="p-2 hover:bg-red-50 text-red-600 rounded-lg transition-all"
-                                                title="Delete">
-                                                <i class='bx bx-trash text-lg'></i>
-                                            </button>
+                                            <form action="{{ route('employees.destroy', $employee->id) }}"
+                                                method="post" onsubmit="return confirm('Hapus data ?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                    class="p-2 hover:bg-red-50 text-red-600 rounded-lg transition-all"
+                                                    title="Delete">
+                                                    <i class='bx bx-trash text-lg'></i>
+                                                </button>
+                                            </form>
                                             <a href="{{ route('employees.show', $employee->id) }}"
                                                 class="p-2 hover:bg-gray-100 text-gray-600 rounded-lg transition-all"
                                                 title="More">

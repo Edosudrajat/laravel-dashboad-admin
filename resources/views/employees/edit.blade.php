@@ -16,7 +16,7 @@
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Edit Employee</h1>
 
         <!-- Form -->
-        <form action="" method="POST" class="space-y-5">
+        <form action="{{ route('employees.update', $employee->id) }}" method="POST" class="space-y-5">
             @csrf
             @method('PUT')
 
@@ -37,7 +37,8 @@
             <!-- Date of Birth -->
             <div>
                 <label class="text-sm text-gray-500">Date of Birth</label>
-                <input type="date" name="date_birth" value="{{ old('date_birth', $employee->date_birth)->format('Y-m-d') }}"
+                <input type="date" name="date_birth"
+                    value="{{ old('date_birth', $employee->date_birth)->format('Y-m-d') }}"
                     class="w-full mt-1 p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-400 focus:outline-none">
             </div>
 
