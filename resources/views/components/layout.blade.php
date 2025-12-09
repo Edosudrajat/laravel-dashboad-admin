@@ -119,10 +119,35 @@
                             <i class='bx bx-bell text-2xl text-gray-600'></i>
                             <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                         </button>
-                        <div
-                            class="w-10 h-10 bg-linear-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                            <i class='bx bxs-user text-xl text-white'></i>
+                        <!-- User Dropdown -->
+                        <div x-data="{ open: false }" class="relative">
+                            <button @click="open = !open"
+                                class="w-10 h-10 bg-linear-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
+                                <i class='bx bxs-user text-xl text-white'></i>
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div x-show="open" @click.outside="open = false" x-transition
+                                class="absolute right-0 mt-3 w-48 bg-white shadow-xl rounded-xl py-2 z-50">
+
+                                <!-- Username -->
+                                <div class="px-4 py-2 border-b border-gray-200">
+                                    <p class="text-sm font-semibold text-gray-700 dark:text-white">{{ auth()->user()->name }}</p>
+                                    <p class="text-xs text-gray-500">{{ auth()->user()->email }}</p>
+                                </div>
+
+                                <!-- Logout -->
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-white">
+                                        Logout
+                                    </button>
+                                </form>
+
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </header>

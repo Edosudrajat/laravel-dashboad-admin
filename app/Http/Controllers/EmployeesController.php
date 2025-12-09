@@ -11,9 +11,7 @@ use function Pest\Laravel\delete;
 class EmployeesController extends Controller
 {
 
-    public function welcome() {
-        return view('landing');
-    }
+
 
     /**
      * Display a listing of the resource.

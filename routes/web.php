@@ -4,26 +4,34 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeesController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/welcome', [EmployeesController::class, 'welcome'])->name('welcome');
+Route::middleware('guest')->controller(AuthController::class)->group(function() {
 
-Route::get('/', [EmployeesController::class, 'index'])->name('employees.index');
+    Route::get('/welcome', 'welcome')->name('welcome');
 
-Route::get('/create', [EmployeesController::class, 'create'])->name('employees.create');
+    Route::get('/login', 'showLogin')->name('auth.login');
 
-Route::post('/create', [EmployeesController::class, 'store'])->name('employees.store');
+    Route::post('/login', 'login')->name('login');
 
-Route::get('/show/{karyawan}', [EmployeesController::class, 'show'])->name('employees.show');
+    Route::get('/register', 'showRegister')->name('auth.register');
 
-Route::delete('/delete/{karyawan}', [EmployeesController::class, 'destroy'])->name('employees.destroy');
+    Route::post('/register', 'register')->name('register');
+});
 
-Route::get('/edit/{karyawan}', [EmployeesController::class, 'edit'])->name('employees.edit');
+Route::middleware('auth')->controller(EmployeesController::class)->group(function() {
 
-Route::put('/{karyawan}/edit', [EmployeesController::class, 'update'])->name('employees.update');
+    Route::get('/', 'index')->name('employees.index');
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
+    Route::get('/create', 'create')->name('employees.create');
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/create', 'store')->name('employees.store');
 
-Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.register');
+    Route::get('/show/{karyawan}', 'show')->name('employees.show');
 
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+    Route::delete('/delete/{karyawan}', 'destroy')->name('employees.destroy');
+
+    Route::get('/edit/{karyawan}', 'edit')->name('employees.edit');
+
+    Route::put('/{karyawan}/edit', 'update')->name('employees.update');
+});
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
