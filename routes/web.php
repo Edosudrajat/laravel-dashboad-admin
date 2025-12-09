@@ -22,6 +22,8 @@ Route::put('/{karyawan}/edit', [EmployeesController::class, 'update'])->name('em
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
 
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
 Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.register');
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');

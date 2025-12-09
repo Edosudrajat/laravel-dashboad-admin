@@ -43,16 +43,21 @@
         <h1 class="text-3xl font-bold text-center text-white">Welcome Back</h1>
         <p class="text-center text-gray-300 mt-2">Log in to manage your employee dashboard</p>
 
-        <form method="POST" action="" class="mt-8">
+        <form action="{{ route('login') }}" method="POST" class="mt-8">
             @csrf
 
             <!-- Email -->
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-200">Email</label>
-                <input type="email" id="email" name="email"
+                <input type="text" value="{{ old('email') }}" id="email" name="email"
                     class="mt-2 w-full px-4 py-3 rounded-xl bg-gray-800/60 border border-white/10 text-gray-200
                     focus:ring-2 focus:ring-purple-500 outline-none"
-                    placeholder="Enter your email" required>
+                    placeholder="Enter your email">
+                @error('email')
+                    <p class="text-red-300 text-sm mt-1 drop-shadow-[0_0_4px_rgba(255,0,0,0.5)]">
+                        {{ $message }}
+                    </p>
+                @enderror
             </div>
 
             <!-- Password -->
@@ -62,7 +67,7 @@
                 <input type="password" id="password" name="password"
                     class="mt-2 w-full px-4 py-3 rounded-xl bg-gray-800/60 border border-white/10 text-gray-200
                     focus:ring-2 focus:ring-purple-500 outline-none"
-                    placeholder="Enter your password" required>
+                    placeholder="Enter your password">
 
                 <!-- Password Toggle Button -->
                 <button type="button" id="togglePassword"
@@ -84,6 +89,11 @@
                             d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" />
                     </svg>
                 </button>
+                @error('password')
+                    <p class="text-red-300 text-sm mt-1 drop-shadow-[0_0_4px_rgba(255,0,0,0.5)]">
+                        {{ $message }}
+                    </p>
+                @enderror
             </div>
 
             <!-- Remember me -->
