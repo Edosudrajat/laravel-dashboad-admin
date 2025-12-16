@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeesController;
+use App\Models\Karyawan;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->controller(AuthController::class)->group(function() {
@@ -21,17 +22,17 @@ Route::middleware('auth')->controller(EmployeesController::class)->group(functio
 
     Route::get('/', 'index')->name('employees.index');
 
-    Route::get('/create', 'create')->name('employees.create');
+    Route::get('/create', 'create')->name('employees.create')->can('create', Karyawan::class);
 
-    Route::post('/create', 'store')->name('employees.store');
+    Route::post('/create', 'store')->name('employees.store')->can('create', Karyawan::class);
 
     Route::get('/show/{karyawan}', 'show')->name('employees.show');
 
-    Route::delete('/delete/{karyawan}', 'destroy')->name('employees.destroy');
+    Route::delete('/delete/{karyawan}', 'destroy')->name('employees.destroy')->can('delete', 'karyawan');
 
-    Route::get('/edit/{karyawan}', 'edit')->name('employees.edit');
+    Route::get('/edit/{karyawan}', 'edit')->name('employees.edit')->can('update', 'karyawan');
 
-    Route::put('/{karyawan}/edit', 'update')->name('employees.update');
+    Route::put('/{karyawan}/edit', 'update')->name('employees.update')->can('update', 'karyawan');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

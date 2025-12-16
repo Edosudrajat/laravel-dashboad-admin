@@ -39,7 +39,7 @@
                     </div>
                     <div class="sidebar-text">
                         <h2 class="font-bold text-lg">Admin Panel</h2>
-                        <p class="text-xs text-white/70">Dashboard v1.0</p>
+                        <p class="text-xs text-white/70">Dashboard v3.0</p>
                     </div>
                 </div>
             </div>

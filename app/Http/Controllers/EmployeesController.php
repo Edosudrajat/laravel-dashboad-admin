@@ -24,11 +24,9 @@ class EmployeesController extends Controller
         $employees = Karyawan::with('mentor')->when($keyword, fn($q) => $q->whereAny(['name','birth_date', 'job'], 'like', "%{$keyword}%"))->paginate(6)->withQueryString();
 
         // Total Kategori Pekerjaan
-        $jobCount = Karyawan::select('job')->distinct()->count();
         $mentorCount = Mentor::select('name')->count();
 
         return view('employees.index', [
-            'jobCount' => $jobCount,
             'employees' => $employees,
             'mentorCount' =>$mentorCount,
         ]);
@@ -66,6 +64,7 @@ class EmployeesController extends Controller
      */
     public function show(Karyawan $karyawan)
     {
+        $karyawan->load('mentor');
         return view('employees.show', ['employee' => $karyawan]);
     }
 

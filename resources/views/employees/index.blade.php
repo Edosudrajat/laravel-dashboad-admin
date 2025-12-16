@@ -30,9 +30,8 @@
                     <span class="text-xs font-semibold text-green-600 bg-green-50 px-3 py-1 rounded-full">+15%</span>
                 </div>
                 <h3 class="text-gray-500 text-sm font-medium">Job Categories</h3>
-                <p class="text-3xl font-bold text-gray-800 mt-2">{{ $jobCount }}</p>
+                <p class="text-3xl font-bold text-gray-800 mt-2">99</p>
             </div>
-
             <!-- Active Employees -->
             <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-all">
                 <div class="flex items-center justify-between mb-4">
@@ -62,10 +61,12 @@
                 <h1 class="text-3xl font-bold text-gray-800">Employee Management</h1>
                 <p class="text-gray-500 mt-1">Manage employee data and information</p>
             </div>
-            <a href="{{ route('employees.create') }}"
-                class="px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2"><i
-                    class='bx bx-plus text-xl'></i>
-                Add Employee</a>
+            @can('create', \App\Models\Karyawan::class)
+                <a href="{{ route('employees.create') }}"
+                    class="px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2"><i
+                        class='bx bx-plus text-xl'></i>
+                    Add Employee</a>
+            @endcan
         </div>
 
         <!-- Table -->
@@ -92,7 +93,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @if ($employees->isEMpty())
+                        @if ($employees->isEmpty())
                             <tr>
                                 <td colspan="5" class="text-center py-6 dark:text-slate-100 font-semibold text-sm">
                                     Data yang anda cari tidak ditemukan.
@@ -122,21 +123,25 @@
                                     <td class="px-6 py-4 text-sm text-gray-600">{{ $employee->mentor->name }}</td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-2">
-                                            <a href="{{ route('employees.edit', $employee->id) }}"
-                                                class="p-2 hover:bg-blue-50 text-blue-600 rounded-lg transition-all"
-                                                title="Edit">
-                                                <i class='bx bx-edit text-lg'></i>
-                                            </a>
-                                            <form action="{{ route('employees.destroy', $employee->id) }}"
-                                                method="post" onsubmit="return confirm('Hapus data ?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button
-                                                    class="p-2 hover:bg-red-50 text-red-600 rounded-lg transition-all"
-                                                    title="Delete">
-                                                    <i class='bx bx-trash text-lg'></i>
-                                                </button>
-                                            </form>
+                                            @can('update', \App\Models\Karyawan::class)
+                                                <a href="{{ route('employees.edit', $employee->id) }}"
+                                                    class="p-2 hover:bg-blue-50 text-blue-600 rounded-lg transition-all"
+                                                    title="Edit">
+                                                    <i class='bx bx-edit text-lg'></i>
+                                                </a>
+                                            @endcan
+                                            @can('delete', \App\Models\Karyawan::class)
+                                                <form action="{{ route('employees.destroy', $employee->id) }}"
+                                                    method="post" onsubmit="return confirm('Hapus data ?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button
+                                                        class="p-2 hover:bg-red-50 text-red-600 rounded-lg transition-all"
+                                                        title="Delete">
+                                                        <i class='bx bx-trash text-lg'></i>
+                                                    </button>
+                                                </form>
+                                            @endcan
                                             <a href="{{ route('employees.show', $employee->id) }}"
                                                 class="p-2 hover:bg-gray-100 text-gray-600 rounded-lg transition-all"
                                                 title="More">

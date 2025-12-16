@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Mahasiswa;
-use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,6 +22,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        User::factory()->create([
+            'name' => 'Administrator',
+            'email' => 'admin@admin',
+            'password' => Hash::make('admin'),
+            'role' => 'admin'
+        ]);
 
         $this->call([MentorSeeder::class]);
         $this->call([KaryawanSeeder::class]);
